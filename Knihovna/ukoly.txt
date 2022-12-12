@@ -1,0 +1,4 @@
+1. Otevřít soubor(y) a načíst všechny data (knihovny a jejich knihy)
+2. Po přidání nových dat uložit do souboru
+3. Po úprávě aktualizovat stávající záznam v souboru
+4. Smazaní v souboru
