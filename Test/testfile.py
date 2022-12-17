@@ -5,4 +5,5 @@ while True:
         break
     else:
         with open('Test/testnames', 'a', encoding="utf-8") as file:
-            file.write(test)
+            file.write(test + "\n")
+            #file.write("\n")
