@@ -2,7 +2,15 @@ class Library:
     def __init__(self, id, name):
         self.id = id
         self.name = name
+        self.libraries = []
         self.books = []
+
+    def add_libraries(self, library):
+        self.libraries.append(library)
+
+        file = open(LIBRARY_PATH, mode="a", encoding='utf-8')
+        file.write(f"{library.id};{library.name}\n")
+        file.close()       
 
     def show_name_library(self):
         return f"{self.name}"
@@ -38,12 +46,19 @@ LIBRARY_PATH = "Knihovna/knihovny"
 BOOKS_PATH = "Knihovna/knihy"
 
 
-def find_new_id():
+def find_book_id():
     max = 0
     for lib in libraries:
         for book in lib.books:
             if book.id > max:
                 max = book.id
+    return max + 1
+
+def find_lib_id():
+    max = 0
+    for lib in libraries:
+        if lib.id > max:
+            max = lib.id
     return max + 1
 
 def load_libraries():
@@ -93,7 +108,7 @@ def input_to_library():
         print("4 - Zpět")
         choice = int(input("Vyber z možnosti: "))
         if choice == 1:
-            id = find_new_id()
+            id = find_book_id()
             name = input("Název knihy: ")
             autor = input("Jméno autora: ")
             pages = input("Počet stran: ")
@@ -128,9 +143,11 @@ def input_to_library():
 
 
 def add_library():
-    newname = input("Zadej nový název knihovny: ")
-    newname = Library(newname)
-    libraries.append(newname)
+    id = find_lib_id()
+    new_name = input("Zadej nový název knihovny: ")
+    new_library = Library(id, new_name)
+    libraries.append(new_library)
+    
 
 
 def rename_library():
