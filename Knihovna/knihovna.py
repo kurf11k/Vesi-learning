@@ -11,7 +11,7 @@ class Library:
         self.books.append(book)
         
         file = open(BOOKS_PATH, mode="a", encoding='utf-8')
-        file.write(f"{book.name};{book.author};{book.pages};{self.id}\n")
+        file.write(f"{book.id};{book.name};{book.author};{book.pages};{self.id}\n")
         file.close()        
     
     def show_books(self):
@@ -23,7 +23,8 @@ class Library:
         pass
 
 class Book:
-    def __init__(self, name, author, pages):
+    def __init__(self, id, name, author, pages):
+        self.id = id
         self.name = name
         self.author = author
         self.pages = pages
@@ -36,6 +37,15 @@ class Book:
 LIBRARY_PATH = "Knihovna/knihovny"
 BOOKS_PATH = "Knihovna/knihy"
 
+
+def find_new_id():
+    max = 0
+    for lib in libraries:
+        for book in lib.books:
+            if book.id > max:
+                max = book.id
+    return max + 1
+
 def load_libraries():
     libs = []
     file = open(file=LIBRARY_PATH, mode="r", encoding='utf-8')
@@ -46,7 +56,15 @@ def load_libraries():
     return libs
 
 def load_books_to_libs(libs):
-    pass
+    file = open(file=BOOKS_PATH, mode="r", encoding="utf-8")
+    for line in file:
+        cols = line.split(";")
+        new_book = Book(int(cols[0]), cols[1], cols[2], cols[3])
+        for lib in libs:
+            lib_id = cols[4].replace("\n", "")
+            if lib.id == lib_id:
+                lib.books.append(new_book)
+
 
 libraries = load_libraries()
 load_books_to_libs(libraries) 
@@ -66,8 +84,8 @@ def input_to_library():
 
     while True:
         print("Seznam knih:")
-        for index, b in enumerate(library.books):
-            print(f"{index + 1}. {b.name} - {b.author} - {b.pages}")
+        for b in library.books:
+            print(f"{b.id} {b.name} - {b.author} - {b.pages}")
         print()
         print("1 - Přidat knihu")
         print("2 - Smazat knihu")
@@ -75,10 +93,11 @@ def input_to_library():
         print("4 - Zpět")
         choice = int(input("Vyber z možnosti: "))
         if choice == 1:
+            id = find_new_id()
             name = input("Název knihy: ")
             autor = input("Jméno autora: ")
             pages = input("Počet stran: ")
-            book = Book(name, autor, pages)
+            book = Book(id, name, autor, pages)
             library.add_book(book)
 
         elif choice == 2:
