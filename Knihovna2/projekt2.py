@@ -79,7 +79,7 @@ def load_books_to_libs(libs):
             lib_id = cols[4].replace("\n", "")
             if lib.id == lib_id:
                 lib.books.append(new_book)
-    return new_book
+
 
 libraries = load_libraries()
 load_books_to_libs(libraries) 
