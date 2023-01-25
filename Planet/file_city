@@ -1,0 +1,42 @@
+1;4;Brno
+2;3;Monako
+3;3;Moskva
+4;1;California
+5;3;Miami
+6;2;Prague
+7;1;Ostrava
+8;2;Hranice
+
+def fix_auto(self, list):
+    new_list = []
+    id = input("Zadej ID auta, které chceš opravit: ")
+    print("1 - ID")
+    print("2 - Značka")
+    print("3 - Počet sedadel")
+    print("4 - Nádrž")
+    print("5 - Spotřeba")
+    choice = input("Vyber z nabídky co chceš opravit: ")
+    for line in list:
+        if line[0] == id and choice == "1":
+            choice = input("Zadej nové ID auta: ")
+            line = Auto(choice, self.značka, self.počet_sedadel, self.nádrž, self.spotřeba, self.dojezd_na_plnout_nádrž())
+            
+        elif line[0] == id and choice == "2":
+            choice = input("Zadej novou značku auta: ")
+            line = Auto(self.id, choice, self.počet_sedadel, self.nádrž, self.spotřeba, self.dojezd_na_plnout_nádrž())
+
+        elif line[0] == id and choice == "3":
+            choice = input("Zadej počet sedadel: ")
+            line = Auto(self.id, self.značka, choice, self.nádrž, self.spotřeba, self.dojezd_na_plnout_nádrž())
+
+        elif line[0] == id and choice == "4":
+            choice = input("Zadej kapacitu nádrže: ")
+            line = Auto(self.id, self.značka, self.počet_sedadel, choice, self.spotřeba, self.dojezd_na_plnout_nádrž())
+
+        elif line[0] == id and choice == "5":
+            choice = input("Zadej spotřebu auta: ")
+            line = Auto(self.id, self.značka, self.počet_sedadel, self.nádrž, choice, self.dojezd_na_plnout_nádrž())
+            new_list.append(line)
+    fix_save(new_list)
+    return new_list
+    
