@@ -8,8 +8,33 @@ class Service:
         self.class_type = class_type
         self.path_to_file = path_to_file
         self.list = storage.load(class_type, path_to_file)
-        
-    def show(self):
+    
+    def show_menu(self):
+        while True:
+            print("---------------")
+            print(f"MENU - {self.class_type.__name__}")
+            print("1 - Show")
+            print("2 - Add" )
+            print("3 - Delete")
+            #print("4 - Update") - tohle až bude implementace na update
+            print("0 - End")
+            choice = input("Type choice: ")
+            
+            if choice == "1":
+                self.show_list()
+            
+            elif choice == "2":
+                self.add()
+                
+            elif choice == "3":
+                self.delete()
+                
+            else:
+                break
+            
+            input("Press any key to continue to menu...")
+            
+    def show_list(self):
         list_to_show = []
         for obj in self.list:
             line = self.__convert_obj_to_list(obj)
@@ -37,6 +62,7 @@ class Service:
         new_obj = self.class_type(**attrs)
         self.list.append(new_obj)
         storage.append(new_obj, self.path_to_file)
+        print(f"{self.class_type.__name__} was succesfully created.")
         
     def update(self):
         print("\n------------")
@@ -45,12 +71,14 @@ class Service:
 
 
     def delete(self):
+        self.show()
         id = input("Type id of object you want delete: ")
         for obj in self.list:
             if id == obj.id:
                 self.list.remove(obj)
                 break
         storage.rewrite(self.list, self.path_to_file)
+        print(f"{self.class_type.__name__} was succesfully deleted.")
 
     def __str__(self):
         return self.list
