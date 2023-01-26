@@ -1,17 +1,43 @@
-from car import Car
-import storage
-
-CAR_PATH = "Auto/cars"
-
 # 1 - read all
 # 2 - read one
 # 3 - create 
 # 4 - update
 # 5 - delete
 
-def show(list):
-    for obj in list:
-        print(obj)
+from controller import Controller
+from car import Car
 
-cars = storage.load(Car, CAR_PATH, ";")
-show(cars)
+CAR_PATH = "Auto/cars"
+
+
+cars_controller = Controller(Car, CAR_PATH)
+
+# Hlavní cyklus
+while True:
+    print("MENU")
+    print("1 - Přidat auto")
+    print("2 - Zobrazit auta")
+    print("3 - Smazat auto")
+    print("4 - Ukončit program")
+    choice = input("Vyber z nabídky: ")
+    print()
+    if choice == "1":
+        cars_controller.add()
+        
+    elif choice == "2":
+        while True:
+            cars_controller.show()
+            print("1 - Opravit parametry auta")
+            print("2 - Zpět")
+            choice = input("Vyber z nabídky: ")
+            if choice == "1":
+                cars_controller.update()
+            else:
+                break
+        continue
+    elif choice == "3":
+        pass
+
+    else:
+        break
+
