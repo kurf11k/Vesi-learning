@@ -3,19 +3,28 @@ import storage
 from tabulate import tabulate
 
 
-class Controller:
+class Service:
     def __init__(self, class_type, path_to_file):
         self.class_type = class_type
         self.path_to_file = path_to_file
         self.list = storage.load(class_type, path_to_file)
         
     def show(self):
-        #print(self.list)
         list_to_show = []
         for obj in self.list:
             line = self.__convert_obj_to_list(obj)
             list_to_show.append(line)
-        print(tabulate(list_to_show, headers=self.__get_class_attrs()))
+            
+        headers = self.__get_class_attrs()
+        for i, header in enumerate(headers):
+            header = header.capitalize()
+            header = header.replace("_", " ")
+            headers[i] = header
+        
+        print(tabulate(list_to_show, headers=headers))
+    
+    def get(self):
+        return self.list
             
     def add(self):
         print("\n------------")

@@ -4,13 +4,11 @@
 # 4 - update
 # 5 - delete
 
-from controller import Controller
+from service import Service
 from car import Car
 
 CAR_PATH = "Auto/cars"
-
-
-cars_controller = Controller(Car, CAR_PATH)
+car_service = Service(Car, CAR_PATH)
 
 # Hlavní cyklus
 while True:
@@ -22,21 +20,21 @@ while True:
     choice = input("Vyber z nabídky: ")
     print()
     if choice == "1":
-        cars_controller.add()
+        car_service.add()
         
     elif choice == "2":
         while True:
-            cars_controller.show()
+            car_service.show()
             print("1 - Opravit parametry auta")
             print("2 - Zpět")
             choice = input("Vyber z nabídky: ")
             if choice == "1":
-                cars_controller.update()
+                car_service.update()
             else:
                 break
         continue
     elif choice == "3":
-        pass
+        car_service.delete()
 
     else:
         break
