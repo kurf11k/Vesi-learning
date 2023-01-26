@@ -10,6 +10,15 @@ from car import Car
 CAR_PATH = "Auto/cars"
 car_service = Service(Car, CAR_PATH)
 
+
+#naimplementuj přidání a smazání ve stejném duchu jako je to s auty
+#podívej se jak to funguje a zkus to idělat stejně, tak že vytvoříš novou service
+#ta service se bude starat o přídání a smazání planet
+#ve zkratce je ta implementace staršně jednoduchá a jsou to cca 4 řádky (v mainu), co musíš napsat, aby to fungovalo
+#samozřejmě musíš vytvořit třídu Planet stejným principem jako třídu Car
+#ale jde o to, abys pochopil ten princip modulace, že stačí použít něco už hotového a bude to fungovat
+
+
 # Hlavní cyklus
 while True:
     print("MENU")
